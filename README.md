@@ -1,0 +1,2 @@
+# configurator
+simple configuration tool
