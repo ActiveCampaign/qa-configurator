@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/wildbit/configurator'
   s.require_paths = ['lib']
   s.required_rubygems_version = '>= 1.9.3'
+  s.add_dependency 'secure_yaml'
 end
