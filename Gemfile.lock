@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    secure_yaml (2.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  secure_yaml
+
+BUNDLED WITH
+   1.17.3
