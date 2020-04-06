@@ -18,14 +18,52 @@ module App
     # OpenStruct class adaptation
     class Struct < OpenStruct
       alias each each_pair
+
+      # convert struct to hash, taken from:
+      # https://github.com/rubyconfig/config
+      def to_hash
+        result = {}
+        marshal_dump.each do |k, v|
+          if v.instance_of? Configurator::Struct
+            result[k] = v.to_hash
+          elsif v.instance_of? Array
+            result[k] = descend_array(v)
+          else
+            result[k] = v
+          end
+        end
+        result
+      end
+
+      private
+
+      def descend_array(array)
+        array.map do |value|
+          if value.instance_of? Configurator::Struct
+            value.to_hash
+          elsif value.instance_of? Array
+            descend_array(value)
+          else
+            value
+          end
+        end
+      end
     end
 
+    FILES_EXTENSION = 'yaml'
     DEFAULT_ENVIRONMENT = 'production'
     attr_accessor :environment,
                   :files_path
 
     def initialize
       @environment = DEFAULT_ENVIRONMENT
+    end
+
+    def load_all!
+      files = Dir.glob("#{files_path}/*.#{FILES_EXTENSION}")
+      names = files.map { |f| File.basename(f).split(".").first }.uniq
+
+      names.each { |name| load!(name) }
     end
 
     # options allowed:
@@ -51,7 +89,7 @@ module App
 
     def config_filename(name)
       filename = "#{name}.yaml"
-      filename_with_env = filename.gsub('yaml', "#{environment}.yaml")
+      filename_with_env = filename.gsub(FILES_EXTENSION, "#{environment}.#{FILES_EXTENSION}")
 
       found_file = get_file_that_exists([filename, filename_with_env])
       return found_file unless found_file.nil?
