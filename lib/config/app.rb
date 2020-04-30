@@ -77,7 +77,7 @@ module App
 
     def global_name=(name)
       Object.send(:remove_const, name) if Object.const_defined?(name)
-      Object.const_set(name, App)
+      Object.const_set(name, App.config)
     end
 
     private
