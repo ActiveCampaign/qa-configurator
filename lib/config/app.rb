@@ -155,4 +155,8 @@ module App
   def self.config
     @config ||= Configurator.new
   end
+
+  def self.clear_config
+    @config = Configurator.new
+  end
 end
