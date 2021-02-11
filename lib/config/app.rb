@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'secure_yaml'
+require_relative 'patch/secure_yaml/cipher'
 require 'singleton'
 require 'ostruct'
 
