@@ -14,7 +14,7 @@ You can use the library with a Bundler.
 With Bundler:
 
 ``` ruby
-gem 'configurator', git: 'https://github.com/wildbit/configurator.git'
+gem 'wbconfigurator'
 ```
 
 ## Issues & Comments
