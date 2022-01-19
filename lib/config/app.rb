@@ -5,6 +5,7 @@ require 'secure_yaml'
 require_relative 'patch/secure_yaml/cipher'
 require 'singleton'
 require 'ostruct'
+require 'erb'
 
 # App::Configuration class helps loading configuration files.
 #
@@ -147,6 +148,8 @@ module App
         Configurator::Struct.new(object)
       when Array
         object.map!(&method(:convert_to_struct))
+      when String
+        ERB.new(object).result
       else
         object
       end
