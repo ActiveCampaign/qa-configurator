@@ -128,7 +128,8 @@ module App
     end
 
     def load_from_yaml(filename)
-      SecureYaml.load(File.open(file_full_path(filename)))
+      yaml_file = ERB.new(File.read(file_full_path(filename))).result
+      SecureYaml.load(yaml_file)
     end
 
     # generate accessors for loaded data
@@ -148,8 +149,6 @@ module App
         Configurator::Struct.new(object)
       when Array
         object.map!(&method(:convert_to_struct))
-      when String
-        ERB.new(object).result
       else
         object
       end

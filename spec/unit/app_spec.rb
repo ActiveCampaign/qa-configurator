@@ -39,5 +39,10 @@ describe 'Configurator' do
       App.config.load!(:test)
       expect(App.config.test.error_id).to eq('error_2')
     end
+
+    it 'erb content - boolean' do
+      App.config.load!(:test)
+      expect(App.config.test.boolean).to eq(true)
+    end
   end
 end

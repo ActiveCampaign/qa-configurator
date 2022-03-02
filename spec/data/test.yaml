@@ -1,3 +1,4 @@
 retry_count:      2
 display_errors:   true
 error_id:         <%= "error_#{1+1}" %>
+boolean:          <%= true %>
