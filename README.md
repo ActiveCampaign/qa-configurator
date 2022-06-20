@@ -5,7 +5,7 @@ It allows easy management of specific environment settings with YAML config file
 
 ## Usage
 
-Please see the [wiki](https://github.com/ActiveCampaign/configurator/wiki) for detailed instructions about how to use the tool.
+Please see the [wiki](https://github.com/ActiveCampaign/qa-configurator/wiki) for detailed instructions about how to use the tool.
 
 ## Installation
 
