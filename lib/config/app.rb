@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'yaml'
-require 'secure_yaml'
-require_relative 'patch/secure_yaml/cipher'
 require 'singleton'
 require 'ostruct'
 require 'erb'
@@ -55,10 +53,12 @@ module App
     FILES_EXTENSION = 'yaml'
     DEFAULT_ENVIRONMENT = 'production'
     attr_accessor :environment,
-                  :files_path
+                  :files_path,
+                  :use_secure_yaml
 
     def initialize
       @environment = DEFAULT_ENVIRONMENT
+      @use_secure_yaml = false
     end
 
     def load_all!
@@ -129,7 +129,14 @@ module App
 
     def load_from_yaml(filename)
       yaml_file = ERB.new(File.read(file_full_path(filename))).result
-      SecureYaml.load(yaml_file)
+
+      if use_secure_yaml
+        require 'secure_yaml'
+        require_relative 'patch/secure_yaml/cipher'
+        SecureYaml.load(yaml_file)
+      else
+        YAML::load(yaml_file)
+      end
     end
 
     # generate accessors for loaded data
