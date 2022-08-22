@@ -14,7 +14,7 @@ You can use the library with a Bundler.
 With Bundler:
 
 ``` ruby
-gem 'wbconfigurator'
+	gem 'wbconfigurator'
 ```
 
 ## Issues & Comments
